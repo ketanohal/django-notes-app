@@ -8,9 +8,8 @@ WORKDIR /app/backend
 COPY requirements.txt /app/backend
 
 RUN apt-get update && apt-get upgrade -y \
-    && apt-get install -y gcc default-libmysqlclient-dev pkg-config \
+    && apt-get install -y gcc default-libmysqlclient-dev python3-dev musl-dev mariadb-dev \
     && rm -rf /var/lib/apt/lists/* \
-    && pip install mysqlclient \
     && pip install --no-cache-dir -r requirements.txt
 
 # Copy all project files
