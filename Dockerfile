@@ -4,10 +4,10 @@ FROM python:3.9
 # Set the working directory
 WORKDIR /app/backend
 
-# Copy requirements file
+# Copy requirements file first (helps with caching layers)
 COPY requirements.txt /app/backend
 
-# Install necessary system dependencies
+# Install system dependencies required for MySQL and Python
 RUN apt-get update && apt-get install -y \
     gcc \
     python3-dev \
@@ -24,7 +24,7 @@ COPY . /app/backend
 # Expose the port for Django
 EXPOSE 8000
 
-# Run migrations before starting the server
+# Ensure all migrations are applied
 RUN python manage.py makemigrations && python manage.py migrate
 
 # Start Django application
